@@ -1,0 +1,4 @@
+# ninja log v5
+0	5304	1707308785569305120	/mnt/iMVR/jiaan/gen-vlkt/models/ops/build/temp.linux-x86_64-cpython-37/mnt/iMVR/jiaan/gen-vlkt/models/ops/src/cpu/ms_deform_attn_cpu.o	441440255c278796
+0	12941	1707308793201285390	/mnt/iMVR/jiaan/gen-vlkt/models/ops/build/temp.linux-x86_64-cpython-37/mnt/iMVR/jiaan/gen-vlkt/models/ops/src/cuda/ms_deform_attn_cuda.o	3ae2e2b31eaaf3c9
+1	15386	1707308795641279082	/mnt/iMVR/jiaan/gen-vlkt/models/ops/build/temp.linux-x86_64-cpython-37/mnt/iMVR/jiaan/gen-vlkt/models/ops/src/vision.o	a06ed24d582cd1d9
