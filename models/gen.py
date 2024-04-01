@@ -116,7 +116,13 @@ class GEN(nn.Module):
         s_sv, s_sl = self.BiAttentionBlock(visual_feature, clip_feature)
         s_sv = s_sv.permute(1, 0, 2) #torch.Size([1008, 4, 256])
         
-        ins_hs = self.instance_decoder(ins_tgt, memory, memory_key_padding_mask=mask,
+        memory_flag = 'memory'
+        if memory_flag == 'memory':
+            instance_memory = memory
+        elif memory_flag == 's_sv':
+            instance_memory = s_sv
+            
+        ins_hs = self.instance_decoder(ins_tgt, instance_memory, memory_key_padding_mask=mask,
                                        pos=pos_embed, query_pos=ins_query_embed)
         ins_hs = ins_hs.transpose(1, 2)
         h_hs = ins_hs[:, :, :num_queries, :]
