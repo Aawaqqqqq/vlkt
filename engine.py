@@ -514,8 +514,6 @@ def formatLabels_ori(targets, results, len_gt):
             img_h, img_w = target['orig_size'].unbind(0)
             scale_fct = [img_w, img_h, img_w, img_h]
             box = target['boxes'][index].float() #xyxy
-            box[2] = box[2] - box[0]
-            box[3] = box[3] - box[1]
             box = torch.stack([x.float() / y.float() for x, y in zip(box, scale_fct)])
             label.extend(box)
             label = [float(elem.item()) if isinstance(elem, torch.Tensor) else elem for elem in label]
