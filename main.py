@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '7'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 import argparse
 import datetime
 import json
@@ -276,12 +276,16 @@ def main(args):
 
     batch_sampler_train = torch.utils.data.BatchSampler(
         sampler_train, args.batch_size, drop_last=True)
+    batch_sampler_val = torch.utils.data.BatchSampler(sampler_val, args.batch_size, drop_last=True)
 
     data_loader_train = DataLoader(dataset_train, batch_sampler=batch_sampler_train,
                                    collate_fn=utils.collate_fn, num_workers=args.num_workers)
-    data_loader_val = DataLoader(dataset_val, args.batch_size, sampler=sampler_val,
+    data_loader_val = DataLoader(dataset_val, 1, sampler=sampler_val,
                                  drop_last=False, collate_fn=utils.collate_fn, num_workers=args.num_workers)
-
+    # data_loader_val = DataLoader(dataset_val, args.batch_size, sampler=sampler_val,
+    #                              drop_last=False, collate_fn=utils.collate_fn, num_workers=args.num_workers)
+    # data_loader_val = DataLoader(dataset_val, batch_sampler=batch_sampler_train,collate_fn=utils.collate_fn, num_workers=args.num_workers)
+    
     if args.frozen_weights is not None:
         checkpoint = torch.load(args.frozen_weights, map_location='cpu')
         model_without_ddp.detr.load_state_dict(checkpoint['model'])
@@ -380,3 +384,4 @@ if __name__ == '__main__':
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     main(args)
+
